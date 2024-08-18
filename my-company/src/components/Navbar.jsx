@@ -2,7 +2,13 @@ import { BrowserRouter as Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav>
+    <nav
+      style={{
+        backgroundColor: "green",
+        display: "flex",
+        justifyContent: "space-between",
+      }}
+    >
       <ul>
         <li>
           <Link to="/">Home</Link>
