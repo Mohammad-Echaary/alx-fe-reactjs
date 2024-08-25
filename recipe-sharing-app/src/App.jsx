@@ -4,28 +4,36 @@ import RecipeList from "./RecipeList";
 import AddRecipeForm from "./AddRecipeForm";
 import RecipeDetails from "./RecipeDetails";
 import EditRecipeForm from "./EditRecipeForm";
+import SearchRecipes from "./SearchRecipes";
+import IngredientsFilter from "./IngredientsFilter";
+import CookingTimeFilter from "./CookingTimeFilter";
 import "./App.css";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Recipe Manager</h1>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <AddRecipeForm />
-                <RecipeList />
-              </>
-            }
-          />
-          {/* Route to display details of a specific recipe */}
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
-          {/* Route to edit a specific recipe */}
-          <Route path="/edit-recipe/:id" element={<EditRecipeForm />} />
-        </Routes>
+        <header>
+          <h1>Recipe Manager</h1>
+          <SearchRecipes />
+          <IngredientsFilter />
+          <CookingTimeFilter />
+        </header>
+        <main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <AddRecipeForm />
+                  <RecipeList />
+                </>
+              }
+            />
+            <Route path="/recipe/:id" element={<RecipeDetails />} />
+            <Route path="/edit-recipe/:id" element={<EditRecipeForm />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );
