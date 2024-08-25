@@ -2,100 +2,29 @@ import create from "zustand";
 
 const useRecipeStore = create((set) => ({
   recipes: [],
-  searchTerm: "",
-  ingredientsFilter: "",
-  cookingTimeFilter: "",
-  filteredRecipes: [],
+  favorites: [],
+  recommendations: [],
 
-  // Action to set the search term and trigger filtering
-  setSearchTerm: (term) =>
-    set((state) => {
-      const lowerCaseTerm = term.toLowerCase();
-      const filteredRecipes = state.recipes.filter(
-        (recipe) =>
-          recipe.title.toLowerCase().includes(lowerCaseTerm) &&
-          recipe.ingredients
-            .toLowerCase()
-            .includes(state.ingredientsFilter.toLowerCase()) &&
-          recipe.cookingTime <= state.cookingTimeFilter
-      );
-
-      return {
-        searchTerm: term,
-        filteredRecipes,
-      };
-    }),
-
-  // Action to set the ingredients filter
-  setIngredientsFilter: (ingredients) =>
-    set((state) => {
-      const lowerCaseIngredients = ingredients.toLowerCase();
-      const filteredRecipes = state.recipes.filter(
-        (recipe) =>
-          recipe.ingredients.toLowerCase().includes(lowerCaseIngredients) &&
-          recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase()) &&
-          recipe.cookingTime <= state.cookingTimeFilter
-      );
-
-      return {
-        ingredientsFilter: ingredients,
-        filteredRecipes,
-      };
-    }),
-
-  // Action to set the cooking time filter
-  setCookingTimeFilter: (time) =>
-    set((state) => {
-      const filteredRecipes = state.recipes.filter(
-        (recipe) =>
-          recipe.cookingTime <= time &&
-          recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase()) &&
-          recipe.ingredients
-            .toLowerCase()
-            .includes(state.ingredientsFilter.toLowerCase())
-      );
-
-      return {
-        cookingTimeFilter: time,
-        filteredRecipes,
-      };
-    }),
-
-  // Action to add a new recipe
-  addRecipe: (newRecipe) =>
+  // Action to add a recipe to favorites
+  addFavorite: (recipeId) =>
     set((state) => ({
-      recipes: [...state.recipes, newRecipe],
-      filteredRecipes: [...state.filteredRecipes, newRecipe],
+      favorites: [...state.favorites, recipeId],
     })),
 
-  // Action to delete a recipe by its index
-  deleteRecipe: (index) =>
+  // Action to remove a recipe from favorites
+  removeFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: state.favorites.filter((id) => id !== recipeId),
+    })),
+
+  // Action to generate recommendations based on favorites
+  generateRecommendations: () =>
     set((state) => {
-      const updatedRecipes = state.recipes.filter((_, i) => i !== index);
-      const updatedFilteredRecipes = state.filteredRecipes.filter(
-        (_, i) => i !== index
+      // Mock implementation: recommend recipes that are not in favorites but are randomly chosen
+      const recommended = state.recipes.filter(
+        (recipe) => !state.favorites.includes(recipe.id) && Math.random() > 0.5
       );
-
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: updatedFilteredRecipes,
-      };
-    }),
-
-  // Action to update a recipe by its index
-  updateRecipe: (index, updatedRecipe) =>
-    set((state) => {
-      const updatedRecipes = state.recipes.map((recipe, i) =>
-        i === index ? updatedRecipe : recipe
-      );
-      const updatedFilteredRecipes = state.filteredRecipes.map((recipe, i) =>
-        i === index ? updatedRecipe : recipe
-      );
-
-      return {
-        recipes: updatedRecipes,
-        filteredRecipes: updatedFilteredRecipes,
-      };
+      return { recommendations: recommended };
     }),
 
   // Action to set or initialize the list of recipes

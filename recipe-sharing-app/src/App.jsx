@@ -7,6 +7,8 @@ import EditRecipeForm from "./EditRecipeForm";
 import SearchRecipes from "./SearchRecipes";
 import IngredientsFilter from "./IngredientsFilter";
 import CookingTimeFilter from "./CookingTimeFilter";
+import FavoritesList from "./FavoritesList";
+import RecommendationsList from "./RecommendationsList";
 import "./App.css";
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
                 <>
                   <AddRecipeForm />
                   <RecipeList />
+                  <FavoritesList />
+                  <RecommendationsList />
                 </>
               }
             />
