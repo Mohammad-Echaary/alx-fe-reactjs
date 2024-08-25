@@ -15,7 +15,7 @@ const RecipeDetails = () => {
       <h2>Recipe Details</h2>
       <p>ID: {id}</p>
       <p>Name: {recipe}</p>
-      {/* Additional details about the recipe could be displayed here */}
+      {/* You can add more details about the recipe here */}
     </div>
   );
 };
