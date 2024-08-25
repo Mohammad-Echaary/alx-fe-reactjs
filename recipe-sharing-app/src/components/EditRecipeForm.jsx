@@ -10,8 +10,9 @@ const EditRecipeForm = () => {
 
   const [updatedRecipe, setUpdatedRecipe] = useState(recipe || "");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
     updateRecipe(id, updatedRecipe); // Update the recipe in the store
     navigate("/"); // Redirect to the home page or wherever you want after updating
   };
