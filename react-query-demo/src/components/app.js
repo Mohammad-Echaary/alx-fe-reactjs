@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-
+import PostsComponent from "./PostsComponent";
 const queryClient = new QueryClient();
 
 function App() {
@@ -9,3 +9,4 @@ function App() {
     </QueryClientProvider>
   );
 }
+export default App;
