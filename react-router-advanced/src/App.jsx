@@ -1,4 +1,3 @@
-// src/App.jsx
 import {
   BrowserRouter as Router,
   Route,
@@ -39,7 +38,7 @@ function App() {
         </Route>
 
         {/* Dynamic Route for BlogPost */}
-        <Route path="/post/:postId" element={<BlogPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
 
         {/* Protected Route */}
         <ProtectedRoute path="/profile/*" element={<Profile />} />
