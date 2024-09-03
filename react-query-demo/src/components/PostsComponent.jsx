@@ -11,16 +11,20 @@ const fetchPosts = async () => {
 
 function PostsComponent() {
   // Use the useQuery hook to fetch posts
-  const { data, error, isLoading, refetch } = useQuery("posts", fetchPosts, {
-    // Enable cache for 5 minutes before considering it stale
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
+  const { data, error, isLoading, isError, refetch } = useQuery(
+    "posts",
+    fetchPosts,
+    {
+      // Enable cache for 5 minutes before considering it stale
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (isError) {
     return <div>Error: {error.message}</div>;
   }
 
