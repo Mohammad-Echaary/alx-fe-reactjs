@@ -1,30 +1,31 @@
 import { useState } from "react";
 
 const RegistrationForm = () => {
-  const [formValues, setFormValues] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+
+    if (name === "username") {
+      setUsername(value);
+    } else if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password } = formValues;
 
     if (!username || !email || !password) {
       alert("All fields are required");
       return;
     }
 
-    console.log("Form submitted:", formValues);
+    console.log("Form submitted:", { username, email, password });
   };
 
   return (
