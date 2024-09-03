@@ -1,22 +1,30 @@
-import { useFormState } from "../hooks/useFormState";
+import { useState } from "react";
 
 const RegistrationForm = () => {
-  const [values, handleChange] = useFormState({
+  const [formValues, setFormValues] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password } = values;
+    const { username, email, password } = formValues;
 
     if (!username || !email || !password) {
       alert("All fields are required");
       return;
     }
 
-    console.log("Form submitted:", values);
+    console.log("Form submitted:", formValues);
   };
 
   return (
