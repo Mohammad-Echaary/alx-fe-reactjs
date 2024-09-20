@@ -17,7 +17,11 @@ function Search() {
       const data = await fetchUserData(username);
       setUserData(data); // Store the result in the state
     } catch (err) {
-      setError("Looks like we can't find the user"); // Set the required error message
+      if (err.response && err.response.status === 404) {
+        setError("Looks like we can't find the user"); // Set specific error for 404
+      } else {
+        setError("Something went wrong. Please try again."); // Handle other errors
+      }
     } finally {
       setLoading(false); // Stop the loading state
     }
