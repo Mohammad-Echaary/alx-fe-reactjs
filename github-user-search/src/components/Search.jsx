@@ -1,25 +1,25 @@
 import { useState } from "react";
-import { fetchAdvancedUserData } from "../services/githubService";
+import { fetchAdvancedUserData } from "../services/githubService"; // Correct function
 
 function Search() {
   const [username, setUsername] = useState("");
-  const [location, setLocation] = useState(""); // New state for location
-  const [minRepos, setMinRepos] = useState(""); // New state for repo count
+  const [location, setLocation] = useState(""); // State for location
+  const [minRepos, setMinRepos] = useState(""); // State for repository count
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSearch = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevents form submission from reloading the page
     setLoading(true);
     setError("");
     setUserData(null);
 
     try {
-      const data = await fetchAdvancedUserData(username, location, minRepos); // Call the new service function
+      const data = await fetchAdvancedUserData(username, location, minRepos); // Use the correct function here
       setUserData(data);
     } catch (err) {
-      setError("Looks like we cant find the user(s)");
+      setError("Looks like we can't find the user(s)");
     } finally {
       setLoading(false);
     }
