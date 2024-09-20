@@ -40,7 +40,8 @@ function Search() {
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.name} width="100" />
-          <h3>{userData.name}</h3>
+          <h3>{userData.name || "No name provided"}</h3>
+          <p>Username: {userData.login}</p> {/* Display the "login" field */}
           <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
             View GitHub Profile
           </a>
