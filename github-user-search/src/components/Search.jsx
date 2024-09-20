@@ -1,9 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { fetchUserData } from "../services/githubService"; // Import the function
 
 function Search() {
   const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -11,13 +11,13 @@ function Search() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    setUserData(null);
+    setUserData([]);
 
     try {
       const data = await fetchUserData(username); // Fetch user data
-      setUserData(data); // Set the user data
+      setUserData(data); // Set the user data (array)
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError("Looks like we can't find any users");
     } finally {
       setLoading(false);
     }
@@ -56,24 +56,28 @@ function Search() {
 
       {loading && <p className="mt-4 text-center text-gray-500">Loading...</p>}
       {error && <p className="mt-4 text-center text-red-500">{error}</p>}
-      {userData && (
-        <div className="mt-6 p-4 bg-gray-100 rounded-md shadow-sm">
-          <img
-            src={userData.avatar_url}
-            alt={userData.login}
-            className="w-16 h-16 rounded-full"
-          />
-          <h3 className="mt-2 text-xl font-semibold">{userData.login}</h3>
-          <p>Location: {userData.location || "Not provided"}</p>
-          <p>Repositories: {userData.public_repos}</p>
-          <a
-            href={userData.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
-            View Profile
-          </a>
+      {userData.length > 0 && (
+        <div className="mt-6 space-y-4">
+          {userData.map((user) => (
+            <div key={user.id} className="p-4 bg-gray-100 rounded-md shadow-sm">
+              <img
+                src={user.avatar_url}
+                alt={user.login}
+                className="w-16 h-16 rounded-full"
+              />
+              <h3 className="mt-2 text-xl font-semibold">{user.login}</h3>
+              <p>Location: {user.location || "Not provided"}</p>
+              <p>Repositories: {user.public_repos}</p>
+              <a
+                href={user.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-indigo-600 hover:text-indigo-800"
+              >
+                View Profile
+              </a>
+            </div>
+          ))}
         </div>
       )}
     </div>
