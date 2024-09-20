@@ -18,7 +18,7 @@ function Search() {
       setUserData(data); // Store the result in the state
     } catch (err) {
       if (err.response && err.response.status === 404) {
-        setError("Looks like we can't find the user"); // Set specific error for 404
+        setError("Looks like we cant find the user"); // Set specific error for 404
       } else {
         setError("Something went wrong. Please try again."); // Handle other errors
       }
