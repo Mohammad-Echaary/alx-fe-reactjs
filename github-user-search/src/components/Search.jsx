@@ -17,7 +17,7 @@ function Search() {
       const data = await fetchUserData(username);
       setUserData(data); // Store the result in the state
     } catch (err) {
-      setError("Looks like we can’t find the user");
+      setError("Looks like we can't find the user"); // Set the required error message
     } finally {
       setLoading(false); // Stop the loading state
     }
@@ -34,9 +34,8 @@ function Search() {
         />
         <button type="submit">Search</button>
       </form>
-
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} {/* Display the error message */}
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.name} width="100" />
