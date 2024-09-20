@@ -1,19 +1,12 @@
 import axios from "axios";
 
-// Base URL for GitHub API
-const BASE_URL = "https://api.github.com";
+const BASE_URL = "https://api.github.com/users";
 
-// Function to fetch GitHub user data
-export const fetchGitHubUser = async (username) => {
+export const fetchUserData = async (username) => {
   try {
-    const response = await axios.get(`${BASE_URL}/users/${username}`, {
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_API_KEY}`, // Optional, only needed if API key is used
-      },
-    });
-    return response.data; // Returns the user data
+    const response = await axios.get(`${BASE_URL}/${username}`);
+    return response.data; // Return the user data
   } catch (error) {
-    console.error("Error fetching GitHub user data:", error);
-    throw error; // Propagate error for handling
+    throw new Error("User not found");
   }
 };
